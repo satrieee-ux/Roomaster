@@ -10,25 +10,29 @@
         @apply bg-grey-50 antialiased text-grey-800;
     }
 
-    /* Headline H1–H5: ExtraBold (800) */
-    h1, h2, h3, h4, h5 {
-        font-weight: 800;
-    }
+    /* --- HEADLINE (ExtraBold 800) --- */
+    h1, .h1 { font-size: 48px; line-height: 58px; font-weight: 800; }
+    h2, .h2 { font-size: 40px; line-height: 48px; font-weight: 800; }
+    h3, .h3 { font-size: 32px; line-height: 38px; font-weight: 800; }
+    h4, .h4 { font-size: 28px; line-height: 34px; font-weight: 800; }
+    h5, .h5 { font-size: 24px; line-height: 28px; font-weight: 800; }
 
-    /* Subtitle S1 & S2: SemiBold (600) */
-    .subtitle-1, .subtitle-2 {
-        font-weight: 600;
-    }
+    /* --- SUBTITLE (SemiBold 600) --- */
+    .subtitle-1 { font-size: 18px; line-height: 28px; font-weight: 600; }
+    .subtitle-2 { font-size: 16px; line-height: 24px; font-weight: 600; }
 
-    /* Body Text */
-    .body-1, .body-3 { font-weight: 400; }
-    .body-2, .body-4 { font-weight: 600; }
+    /* --- BODY --- */
+    .body-1 { font-size: 16px; line-height: 24px; font-weight: 400; }
+    .body-2 { font-size: 16px; line-height: 24px; font-weight: 600; }
+    .body-3 { font-size: 14px; line-height: 20px; font-weight: 400; }
+    .body-4 { font-size: 14px; line-height: 20px; font-weight: 600; }
 
-    /* Caption Text */
-    .caption-1, .caption-3 { font-weight: 400; }
-    .caption-2 { font-weight: 500; }
+    /* --- CAPTION --- */
+    .caption-1 { font-size: 12px; line-height: 16px; font-weight: 400; }
+    .caption-2 { font-size: 12px; line-height: 16px; font-weight: 500; }
+    .caption-3 { font-size: 10px; line-height: 14px; font-weight: 400; }
 
-    /* Label & Button Text */
-    .label-text { font-weight: 500; }
+    /* --- LABEL & BUTTON --- */
+    .label-text { font-size: 12px; line-height: 16px; font-weight: 500; }
     button, .btn { font-weight: 600; }
 }

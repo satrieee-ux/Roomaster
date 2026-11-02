@@ -1,21 +1,14 @@
-@props([
-    'id',
-    'title' => '',
-])
+{{--
+    Popup konfirmasi. layout="row" (tombol sejajar) | "stack" (tombol bertumpuk)
+--}}
+@props(['id', 'title' => '', 'message' => '', 'layout' => 'row'])
 
-<div id="{{ $id }}" class="fixed inset-0 z-50 hidden bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-white rounded-xl p-6 max-w-sm w-full text-center shadow-xl transform transition-all">
-        @if($title)
-            <h3 class="text-lg font-bold text-grey-800 mb-2">{{ $title }}</h3>
-        @endif
-        
-        <p class="text-sm text-grey-500 mb-6">
-            {{ $slot }}
-        </p>
-
-        <div class="flex items-center justify-center gap-3">
-            <x-button variant="primary" size="md" class="w-full">Button</x-button>
-            <x-button variant="outline" size="md" class="w-full">Button</x-button>
-        </div>
+<x-modal :id="$id" :labelledby="$id.'-title'" class="bg-grey-50 p-xl text-center">
+    <h2 id="{{ $id }}-title" class="text-s2 text-grey-900">{{ $title }}</h2>
+    @if($message)
+        <p class="mt-1 text-b3 text-grey-500">{{ $message }}</p>
+    @endif
+    <div class="mt-lg {{ $layout === 'stack' ? 'flex flex-col gap-xs' : 'flex gap-sm' }}">
+        {{ $slot }}
     </div>
-</div>
+</x-modal>
