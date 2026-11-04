@@ -30,7 +30,7 @@ if ($heading === null) {
 $heading ??= 'Welcome Back, '.$name.'!';
 @endphp
 @if($variant === 'home')
-  <header {{ $attributes->class(['shrink-0 rounded-b-[32px] bg-primary-900 pb-[26px] text-white']) }}>
+  <header {{ $attributes->class(['sticky top-0 z-20 shrink-0 rounded-b-[32px] bg-primary-900 pb-[26px] text-white']) }}>
     <div class="flex h-[108px] items-end justify-between px-2 pb-4">
       <span class="flex px-4">
         <span class="relative size-8">

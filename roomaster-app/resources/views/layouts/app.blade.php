@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>{{ $title ?? 'Roomaster' }}</title>
     <link rel="icon" href="{{ asset('logo.svg') }}" type="image/svg+xml">
     <!-- Browser jadul otomatis pakai yang ini -->
@@ -17,10 +17,11 @@
     {{-- Lucide Script Fallback --}}
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="bg-grey-200 min-h-screen flex items-center justify-center p-0 md:p-6 font-sans antialiased select-none">
+<body class="bg-grey-200 h-dvh overflow-hidden flex items-center justify-center p-0 md:p-6 font-sans antialiased select-none">
 
     {{-- Mobile Viewport Frame (390px x 844px) --}}
-    <main class="w-full max-w-[390px] min-h-[844px] h-[844px] bg-grey-50 shadow-2xl rounded-none md:rounded-[40px] overflow-hidden relative flex flex-col justify-between border border-grey-300">
+    {{-- Tinggi tetap 844 di desktop; isi yang lebih tinggi bisa di-scroll vertikal, overflow horizontal disembunyikan --}}
+    <main class="no-scrollbar w-full max-w-[390px] h-dvh md:h-[844px] bg-grey-50 shadow-2xl rounded-none md:rounded-[40px] overflow-y-auto overflow-x-hidden relative border border-grey-300">
         @yield('content')
     </main>
 
