@@ -20,7 +20,27 @@ $bk = fn ($id, $title, $status, $date, $time, $dept, $img) => [
     'time' => $time, 'department' => $dept, 'image' => 'images/rooms/'.$img,
 ];
 
-Route::redirect('/', '/menu-utama');
+/*
+|--------------------------------------------------------------------------
+| Awal: splash, login, sign up, myITS SSO
+|--------------------------------------------------------------------------
+*/
+Route::view('/', 'pages.splash')->name('splash');
+Route::view('/login', 'pages.login')->name('login');
+Route::view('/signup', 'pages.signup')->name('signup');
+Route::post('/login', fn () => redirect('/menu-utama'));
+Route::post('/signup', fn () => redirect('/menu-utama'));
+
+Route::get('/login-its/accounts', fn () => view('pages.pilih_akun_its', ['accounts' => [
+    ['type' => 'student', 'email' => '5026241065@student.its.ac.id', 'label' => 'Student Account'],
+    ['type' => 'staff',   'email' => 'musaddad@sarpras.its.ac.id',   'label' => 'Education Personnel Account'],
+    ['type' => 'staff',   'email' => 'azura@tu.its.ac.id',           'label' => 'Education Personnel Account'],
+]]))->name('its.accounts');
+Route::view('/login-its/email', 'pages.email_its')->name('its.email');
+Route::get('/login-its/password', fn () => view('pages.password_its', [
+    'email' => request('email', '5026241065@student.its.ac.id'),
+]))->name('its.password');
+Route::post('/login-its', fn () => redirect('/menu-utama'));
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +70,51 @@ Route::get('/menu-utama', function () {
 
 /*
 |--------------------------------------------------------------------------
+| QReport: scan, form, berhasil, ringkasan, riwayat
+|--------------------------------------------------------------------------
+*/
+Route::view('/qreporting', 'pages.Qreporting')->name('qreporting');
+
+Route::get('/qreporting/report', fn () => view('pages.laporkerusakan', [
+    'location' => ['room' => 'Room 4202 - Smart Class', 'address' => 'Sistem Informasi ITS, Sukolilo, Surabaya'],
+    'categories' => [
+        ['icon' => 'air-vent',  'label' => 'Air Conditioning'],
+        ['icon' => 'projector', 'label' => 'Projector'],
+        ['icon' => 'lightbulb', 'label' => 'Lighting'],
+        ['icon' => 'armchair',  'label' => 'Desk/Seating'],
+    ],
+]))->name('qreporting.report');
+
+Route::view('/qreporting/submitted', 'pages.laporkerusakan_submitted')->name('qreporting.submitted');
+
+Route::get('/qreporting/history', function () {
+    $all = [
+        ['id' => 1, 'title' => 'SI-4202', 'date' => '24 Okt 2023', 'department' => 'Departemen Sistem Informasi',
+         'status' => 'pending', 'issues' => [['icon' => 'air-vent', 'label' => 'Faulty AC'], ['icon' => 'wifi', 'label' => 'Poor Connection']]],
+        ['id' => 2, 'title' => 'SI-4202', 'date' => '24 Okt 2023', 'department' => 'Departemen Sistem Informasi',
+         'status' => 'draft', 'issues' => [['icon' => 'air-vent', 'label' => 'Faulty AC'], ['icon' => 'wifi', 'label' => 'Poor Connection']]],
+    ];
+    $filter = request('filter', 'all');
+    $active = ['all' => 0, 'active' => 1, 'approved' => 2, 'pending' => 3][$filter] ?? 0;
+    $reports = match ($filter) {
+        'pending'  => array_values(array_filter($all, fn ($r) => $r['status'] === 'pending')),
+        'approved' => array_values(array_filter($all, fn ($r) => $r['status'] === 'approved')),
+        'active'   => array_values(array_filter($all, fn ($r) => in_array($r['status'], ['pending', 'draft']))),
+        default    => $all,
+    };
+    return view('pages.riwayatlaporan', compact('reports', 'active'));
+})->name('qreporting.history');
+
+Route::get('/qreporting/summary/{id}', fn ($id) => view('pages.ringkasanlaporan', ['report' => [
+    'code' => 'R4992A7', 'status' => 'pending', 'updated' => '1 mins ago',
+    'room' => 'SI-4202', 'location' => 'Gedung 4 Sistem Informasi, 2nd Floor', 'date' => '8 July 2026',
+    'issues' => [['icon' => 'air-vent', 'label' => 'Faulty AC'], ['icon' => 'wifi', 'label' => 'Poor Connection']],
+    'description' => "The air conditioning unit in the north- east corner of the room is making a loud grinding noise and leaking water onto the carpet. The thermostat interface is also unresponsive, showing an error code 'E-42'. Maintenance is requested urgently as this is a computer lab.",
+    'evidence' => ['images/rooms/building.jpg', 'images/rooms/building.jpg'],
+]]))->whereNumber('id')->name('qreporting.summary');
+
+/*
+|--------------------------------------------------------------------------
 | Searching: pencarian & hasil
 |--------------------------------------------------------------------------
 */
@@ -59,25 +124,25 @@ Route::get('/search', fn () => view('pages.melakukan_search', [
         $room(2, 'MS-105',   'Departemen Teknik Mesin ITS',    'Up to 50 Person (M)',   'class.jpg'),
     ],
     'forYou' => [
-        $room(3, 'SI-4202',  $ITS,                                            'Up to 50 Person (M)',   'building.jpg'),
-        $room(4, 'IF-103',   'Departemen Teknik Informatika ITS',             'Up to 100 Person (L)',  'hall.jpg'),
-        $room(5, 'PWK-201',  'Departemen Perencanaan Wilayah dan Kota ITS',   'Up to 20 Person (S)',   'blue-class.jpg'),
-        $room(6, 'ELKA-301', 'Departemen Teknik Elektro ITS',                 'Up to 250 Person (XL)', 'building.jpg'),
-        $room(7, 'MS-105',   'Departemen Teknik Mesin ITS',                   'Up to 50 Person (M)',   'building.jpg'),
-        $room(8, 'SI-3201',  $ITS,                                            'Up to 20 Person (S)',   'building.jpg'),
+        $room(3, 'SI-4202',  $ITS,                                          'Up to 50 Person (M)',   'building.jpg'),
+        $room(4, 'IF-103',   'Departemen Teknik Informatika ITS',           'Up to 100 Person (L)',  'hall.jpg'),
+        $room(5, 'PWK-201',  'Departemen Perencanaan Wilayah dan Kota ITS', 'Up to 20 Person (S)',   'blue-class.jpg'),
+        $room(6, 'ELKA-301', 'Departemen Teknik Elektro ITS',               'Up to 250 Person (XL)', 'building.jpg'),
+        $room(7, 'MS-105',   'Departemen Teknik Mesin ITS',                 'Up to 50 Person (M)',   'building.jpg'),
+        $room(8, 'SI-3201',  $ITS,                                          'Up to 20 Person (S)',   'building.jpg'),
     ],
 ]))->name('search');
 
 Route::get('/search/results', fn () => view('pages.melihat_hasil_search', [
     'filters' => [
-        ['icon' => 'users',    'label' => '50-99'],
+        ['icon' => 'users', 'label' => '50-99'],
         ['label' => 'Departemen'],
         ['icon' => 'air-vent'],
         ['icon' => 'projector'],
         ['icon' => 'x', 'href' => url('/search')],
     ],
     'results' => [
-        $room(1, 'SI-3201', $ITS, 'Up to 20 Person (S)',  'computer-lab.jpg'),
+        $room(1, 'SI-3201', $ITS, 'Up to 20 Person (S)', 'computer-lab.jpg'),
         $room(2, 'IF-204',  'Departemen Teknik Informatika ITS', 'Up to 100 Person (L)', 'blue-class.jpg'),
     ],
     'more' => [
