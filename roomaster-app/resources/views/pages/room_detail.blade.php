@@ -142,6 +142,6 @@
   </main>
 
   {{-- BookBar: sticky bawah, sudut atas membulat --}}
-  <x-component_bookbar :href="url('/rooms/'.$room['id'].'/book')" />
+  <x-component_bookbar :href="url('/booking/'.$room['id'])" />
 </div>
 @endsection

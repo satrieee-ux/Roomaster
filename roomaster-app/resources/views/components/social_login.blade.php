@@ -8,7 +8,7 @@
 @if($myits)
   <a href="{{ url('/login-its/accounts') }}"
      class="mt-2 flex h-[38px] items-center justify-center gap-2 rounded-full bg-[#00589F] text-[14px] leading-5 font-medium text-white">
-    <span class="flex size-6 items-center justify-center rounded-full border border-white/70 text-[8px] font-bold">ITS</span>{{ $myits }}
+    <img src="{{ asset('images/logo-its.svg') }}" alt="ITS" class="size-6">{{ $myits }}
   </a>
 @endif
 

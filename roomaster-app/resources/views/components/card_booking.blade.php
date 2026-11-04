@@ -15,7 +15,7 @@ $primary = ['upcoming' => 'Check-In', 'draft' => 'Continue', 'action_required' =
 @endphp
 <div {{ $attributes->class(['rounded-xl bg-white px-4 py-3 shadow-card']) }}>
   <div class="flex h-[100px] gap-3">
-    <img src="{{ $image }}" alt="" class="size-[72px] shrink-0 rounded-lg bg-grey-200 object-cover">
+    <img src="{{ $image ? asset($image) : '' }}" alt="" class="size-[72px] shrink-0 rounded-lg bg-grey-200 object-cover">
     <div class="min-w-0 flex-1">
       <div class="flex items-center justify-between gap-2.5">
         <h4 class="truncate text-[16px] leading-6 font-semibold text-grey-800">{{ $title }}</h4>

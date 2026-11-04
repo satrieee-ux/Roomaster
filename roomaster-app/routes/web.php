@@ -287,6 +287,79 @@ Route::get('/rooms/{id}/reviews', fn ($id) => $roomDetail($id, 1, $reviewData))
 
 /*
 |--------------------------------------------------------------------------
+| Booking flow: formulir → tanggal → waktu → dokumen → ringkasan → berhasil
+| (/booking/{id}, tunggal; beda dengan /bookings = daftar riwayat)
+|--------------------------------------------------------------------------
+*/
+Route::prefix('booking/{id}')->where(['id' => '[0-9]+'])->group(function () {
+
+    // Formulir kosong (tanggal belum dipilih)
+    Route::get('/', fn ($id) => view('pages.booking_isiformulir_peminjaman', [
+        'id' => $id, 'room' => 'SI-4202',
+    ]))->name('booking');
+
+    // Tanggal terisi (Check Availability aktif)
+    Route::get('/tanggal', fn ($id) => view('pages.booking_pilhtanggal_peminjaman', [
+        'id' => $id, 'room' => 'SI-4202', 'date' => request('date', '2026-05-20'),
+    ]))->name('booking.tanggal');
+
+    // Waktu terpilih (menerima data dari form lewat query string)
+    Route::get('/waktu', fn ($id) => view('pages.booking_pilihwaktu_peminjaman', [
+        'id' => $id, 'room' => 'SI-4202',
+        'date' => request('date', '2026-05-20'),
+        'time' => request('time', '15:00 - 17:00'),
+        'activity' => request('activity'),
+        'purpose' => request('purpose'),
+        'department' => request('department'),
+    ]))->name('booking.waktu');
+
+    // Dokumen pendukung: kosong
+    Route::get('/dokumen', fn ($id) => view('pages.booking_melampirkan_dokumenpendukung', [
+        'id' => $id, 'allUploaded' => false,
+        'docs' => [
+            ['label' => 'KTM/KTP',          'name' => 'ktm',   'file' => null],
+            ['label' => 'Surat Peminjaman', 'name' => 'surat', 'file' => null],
+        ],
+    ]))->name('booking.dokumen');
+
+    // Dokumen pendukung: sudah terunggah (mengikuti gambar referensi)
+    Route::get('/dokumen/terunggah', fn ($id) => view('pages.booking_berkasterunggah', [
+        'id' => $id, 'allUploaded' => true,
+        'docs' => [
+            ['label' => 'KTM/KTP',          'name' => 'ktm',    'file' => ['name' => 'KTP_Scan_JohnDoe.pdf', 'size' => '1.2 MB']],
+            ['label' => 'Surat Peminjaman', 'name' => 'surat',  'file' => ['name' => 'Surat Peminjaman.pdf', 'size' => '1.2 MB']],
+            ['label' => 'Surat Peminjaman', 'name' => 'surat2', 'file' => ['name' => 'KTP_Scan_JohnDoe.pdf', 'size' => '1.2 MB']],
+        ],
+    ]))->name('booking.terunggah');
+
+    Route::get('/ringkasan', fn ($id) => view('pages.booking_ringkasanpeminjaman', [
+        'id' => $id,
+        'booking' => [
+            'code' => 'R4992A7',
+            'room' => 'SI-4202',
+            'location' => 'Gedung 4 Sistem Informasi, 2nd Floor',
+            'capacity' => '20 Persons',
+            'facilities' => [
+                ['icon' => 'air-vent', 'label' => 'Full AC'],
+                ['icon' => 'wifi',     'label' => '5G Wifi'],
+            ],
+            'date' => '6 July 2026',
+            'time' => '09.00 - 12.00 (3 Hours)',
+            'activity_name' => 'Rapat Pangsang IM #07',
+            'description' => 'Pencerdasan fullday untuk anak IM covering leadership skills and upcoming academic year planning. Expected attendance is full capacity.',
+            'documents' => [
+                ['name' => 'KTP_Scan_JohnDoe.pdf', 'size' => '1.2 MB'],
+                ['name' => 'Surat Peminjaman.pdf', 'size' => '1.2 MB'],
+            ],
+        ],
+    ]))->name('booking.ringkasan');
+
+    Route::get('/berhasil', fn ($id) => view('pages.booking_berhasil', ['id' => $id]))
+        ->name('booking.berhasil');
+});
+
+/*
+|--------------------------------------------------------------------------
 | Bookings: All, Active, Approved, Pending
 |--------------------------------------------------------------------------
 */
