@@ -13,9 +13,9 @@
   'homeUrl' => '/menu-utama',
   'name' => 'Zenkko',
   'avatar' => null,
-  'searchUrl' => '#',
-  'chatUrl' => '#',
-  'notifUrl' => '#',
+  'searchUrl' => '/search',
+  'chatUrl' => '/chat',
+  'notifUrl' => '/notifikasi',
 ])
 @php
 // Tambah halaman baru di sini: pola route => teks sapaan.
@@ -34,18 +34,18 @@ $heading ??= 'Welcome Back, '.$name.'!';
     <div class="flex h-[108px] items-end justify-between px-2 pb-4">
       <span class="flex px-4">
         <span class="relative size-8">
-          <img src="{{ $avatar }}" alt="" class="size-8 rounded-full bg-primary-100 object-cover">
+          <img src="{{ asset($avatar ?: 'images/avatar.jpg') }}" alt="{{ $name }}" class="size-8 rounded-full bg-primary-100 object-cover">
           <span class="absolute bottom-0 right-0 size-2.5 rounded-full border-2 border-primary-900 bg-success-500"></span>
         </span>
       </span>
       <div class="flex">
-        <a href="{{ $chatUrl }}" aria-label="Chat" class="flex h-11 w-12 items-center justify-center"><x-icon name="message-square" :size="24" /></a>
-        <a href="{{ $notifUrl }}" aria-label="Notifikasi" class="flex h-11 w-12 items-center justify-center"><x-icon name="bell" :size="24" /></a>
+        <a href="{{ url($chatUrl) }}" aria-label="Chat" class="flex h-11 w-12 items-center justify-center"><x-icon name="message-square" :size="24" /></a>
+        <a href="{{ url($notifUrl) }}" aria-label="Notifikasi" class="flex h-11 w-12 items-center justify-center"><x-icon name="bell" :size="24" /></a>
       </div>
     </div>
     <div class="px-6">
       <h4 class="text-[24px] leading-7 font-extrabold">{{ $heading }}</h4>
-      <a href="{{ $searchUrl }}" class="mt-3 flex h-[50px] items-center gap-3 rounded-xl bg-grey-100 p-3 text-[16px] leading-6 font-normal text-grey-500">
+      <a href="{{ url($searchUrl) }}" class="mt-3 flex h-[50px] items-center gap-3 rounded-xl bg-grey-100 p-3 text-[16px] leading-6 font-normal text-grey-500">
         <x-icon name="search" :size="24" /> Search
       </a>
     </div>

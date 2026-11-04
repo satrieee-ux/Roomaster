@@ -473,7 +473,7 @@ Route::get('/chat', fn () => view('pages.percakapan', ['conversations' => [
     ['id' => 1, 'name' => 'Artin Finalita, S.T, M.T', 'time' => '10:45 AM', 'unread' => 3,
      'preview' => 'I see. Could you please send a photo of the cable connection? I\'ll check if a maintenance staff is nearby.'],
 ]]))->name('chats');
-
+Route::redirect('/percakapan', '/chat');
 Route::get('/chat/{id}', fn ($id) => view('pages.pesan', [
     'admin' => ['id' => $id, 'name' => 'Artin Finalita, S.T, M.T', 'status' => 'Average Response: 2h'],
     'date' => 'Monday, Oct 23',

@@ -3,7 +3,7 @@
 <span {{ $attributes->merge(['class' => "relative inline-flex shrink-0 $size"]) }}>
     <span class="flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-primary-50 text-[12px] leading-4 font-medium text-primary-700">
         @if($src)
-            <img src="{{ $src }}" alt="{{ $name }}" class="h-full w-full object-cover">
+            <img src="{{ asset($src) }}" alt="{{ $name }}" class="h-full w-full object-cover">
         @else
             {{ \Illuminate\Support\Str::of($name)->explode(' ')->map(fn ($w) => mb_substr($w, 0, 1))->take(2)->join('') }}
         @endif

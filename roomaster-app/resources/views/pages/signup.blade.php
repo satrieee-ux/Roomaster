@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<x-auth_page active="signup">
+<x-auth_page active="signup" padBottom="pb-14">
   <form action="{{ url('/signup') }}" method="POST" class="flex flex-col">
     @csrf
     <div class="flex flex-col gap-4">

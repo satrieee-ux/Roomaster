@@ -14,10 +14,10 @@
     @endif
   </div>
 
-  @if($layout === 'stack')
+    @if($layout === 'stack')
     <div class="flex flex-col gap-3 px-6">
       @foreach($rooms as $r)
-        <x-card_room layout="vertical_large"
+        <x-card_room layout="vertical_large" :id="$r['id']"
           :title="$r['title']" :department="$r['department']"
           :capacity="$r['capacity']" :image="$r['image']" :favorite="$r['favorite']" />
       @endforeach
@@ -25,7 +25,7 @@
   @elseif($layout === 'list')
     <div class="flex flex-col gap-3 px-6">
       @foreach($rooms as $r)
-        <x-card_room layout="horizontal"
+        <x-card_room layout="horizontal" :id="$r['id']"
           :title="$r['title']" :department="$r['department']"
           :capacity="$r['capacity']" :image="$r['image']" :favorite="$r['favorite']" />
       @endforeach
@@ -33,7 +33,7 @@
   @else
     <div class="no-scrollbar -mb-4 flex items-start gap-3 overflow-x-auto px-6 pb-4">
       @foreach($rooms as $r)
-        <x-card_room layout="vertical" class="shrink-0"
+        <x-card_room layout="vertical" class="shrink-0" :id="$r['id']"
           :title="$r['title']" :department="$r['department']"
           :capacity="$r['capacity']" :image="$r['image']" :favorite="$r['favorite']" />
       @endforeach
