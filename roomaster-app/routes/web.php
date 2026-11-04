@@ -50,6 +50,68 @@ Route::get('/menu-utama', function () {
 
 /*
 |--------------------------------------------------------------------------
+| Searching: pencarian & hasil
+|--------------------------------------------------------------------------
+*/
+Route::get('/search', fn () => view('pages.melakukan_search', [
+    'recent' => [
+        $room(1, 'ELKA-301', 'Departemen Teknik Elektro ITS', 'Up to 250 Person (XL)', 'computer-lab.jpg'),
+        $room(2, 'MS-105',   'Departemen Teknik Mesin ITS',    'Up to 50 Person (M)',   'class.jpg'),
+    ],
+    'forYou' => [
+        $room(3, 'SI-4202',  $ITS,                                            'Up to 50 Person (M)',   'building.jpg'),
+        $room(4, 'IF-103',   'Departemen Teknik Informatika ITS',             'Up to 100 Person (L)',  'hall.jpg'),
+        $room(5, 'PWK-201',  'Departemen Perencanaan Wilayah dan Kota ITS',   'Up to 20 Person (S)',   'blue-class.jpg'),
+        $room(6, 'ELKA-301', 'Departemen Teknik Elektro ITS',                 'Up to 250 Person (XL)', 'building.jpg'),
+        $room(7, 'MS-105',   'Departemen Teknik Mesin ITS',                   'Up to 50 Person (M)',   'building.jpg'),
+        $room(8, 'SI-3201',  $ITS,                                            'Up to 20 Person (S)',   'building.jpg'),
+    ],
+]))->name('search');
+
+Route::get('/search/results', fn () => view('pages.melihat_hasil_search', [
+    'filters' => [
+        ['icon' => 'users',    'label' => '50-99'],
+        ['label' => 'Departemen'],
+        ['icon' => 'air-vent'],
+        ['icon' => 'projector'],
+        ['icon' => 'x', 'href' => url('/search')],
+    ],
+    'results' => [
+        $room(1, 'SI-3201', $ITS, 'Up to 20 Person (S)',  'computer-lab.jpg'),
+        $room(2, 'IF-204',  'Departemen Teknik Informatika ITS', 'Up to 100 Person (L)', 'blue-class.jpg'),
+    ],
+    'more' => [
+        $room(3, 'ELKA-210', 'Departemen Teknik Elektro ITS', 'Up to 50 Person (M)', 'building.jpg'),
+        $room(4, 'PWK-305',  'Departemen Perencanaan Wilayah dan Kota ITS', 'Up to 250 Person (XL)', 'building.jpg'),
+    ],
+]))->name('search.results');
+
+/*
+|--------------------------------------------------------------------------
+| Check-In & Check-Out
+|--------------------------------------------------------------------------
+*/
+Route::get('/checkin/{id}', fn ($id) => view('pages.checkin', ['booking' => [
+    'id' => $id, 'guest' => 'Fauzan Azura', 'room' => 'SI-4202',
+    'date' => 'Jun 7, 2026', 'reservation' => 'RES-99831A',
+]]))->whereNumber('id')->name('checkin');
+
+Route::get('/checkin/{id}/success', fn ($id) => view('pages.berhasilcheckin'))
+    ->whereNumber('id')->name('checkin.success');
+
+Route::get('/checkout/{id}', fn ($id) => view('pages.checkout', [
+    'id' => $id,
+    'checklist' => [
+        'Trash bins emptied', 'All surfaces wiped down', 'Floors swept and vacuumed',
+        'Personal belongings removed', 'Lights and electronics turned off',
+    ],
+]))->whereNumber('id')->name('checkout');
+
+Route::get('/checkout/{id}/success', fn ($id) => view('pages.berhasilcheckout'))
+    ->whereNumber('id')->name('checkout.success');
+
+/*
+|--------------------------------------------------------------------------
 | Rooms: All, SKPB, Departemen, Favorites
 |--------------------------------------------------------------------------
 */
@@ -111,6 +173,55 @@ Route::prefix('rooms')->group(function () use ($room, $SI, $ITS, $M) {
 
 /*
 |--------------------------------------------------------------------------
+| Room Detail: About & Reviews (setelah group /rooms agar tidak bentrok dengan {id})
+|--------------------------------------------------------------------------
+*/
+$roomDetail = fn ($id, $tab, $reviews) => view('pages.room_detail', [
+    'tab' => $tab,
+    'room' => [
+        'id' => $id, 'title' => 'SI-4202', 'department' => 'Departemen Sistem Informasi ITS',
+        'rating' => '4.5', 'review_count' => 67,
+        'address' => 'Kampus ITS, Keputih, Kec. Sukolilo, Surabaya, Jawa Timur 60117',
+        'image' => 'images/rooms/blue-class.jpg',
+        'gallery' => [
+            'images/rooms/computer-lab.jpg', 'images/rooms/class.jpg',
+            'images/rooms/building.jpg', 'images/rooms/hall.jpg',
+        ],
+        'more' => 10,
+        'facilities' => [
+            ['icon' => 'users',    'label' => '20 Orang'],
+            ['icon' => 'air-vent', 'label' => 'Full AC'],
+            ['icon' => 'wifi',     'label' => 'WI-FI 5G'],
+        ],
+        'description' => 'Ruang rapat representatif yang dilengkapi dengan fasilitas presentasi modern. Cocok untuk pertemuan tingkat eksekutif, presentasi proyek berskala besar, dan seminar internal. Ruangan memiliki pencahayaan alami yang baik dengan tirai otomatis.',
+        'cs' => ['name' => 'CS Name', 'response' => '~2 Hours'],
+    ],
+    'reviews' => $reviews,
+]);
+
+$reviewData = [
+    'top' => [
+        ['name' => 'Ahmad Fauzan',   'date' => '20 June 2026', 'rating' => 5, 'comment' => 'Ruangan nyaman dan AC dingin.'],
+        ['name' => 'Dinda Maharani', 'date' => '21 June 2026', 'rating' => 5, 'comment' => 'Cocok untuk seminar skala menengah.'],
+        ['name' => 'Rizky Pratama',  'date' => '22 June 2026', 'rating' => 5, 'comment' => 'Cukup tenang untuk diskusi kelompok.'],
+    ],
+    'all' => [
+        ['name' => 'Nabila Putri',    'date' => '23 June 2026', 'rating' => 5, 'comment' => 'Aula luas dengan fasilitas lengkap.'],
+        ['name' => 'Bagas Aditya',    'date' => '24 June 2026', 'rating' => 5, 'comment' => 'Ruangan bersih dan tertata rapi.'],
+        ['name' => 'CS Name',         'date' => '6 July 2067',  'rating' => 5, 'comment' => '“This room is so goated bro frfr”'],
+        ['name' => 'Intan Permata',   'date' => '25 June 2026', 'rating' => 5, 'comment' => 'Sangat cocok untuk rapat tim kecil.'],
+        ['name' => 'Fajar Ramadhan',  'date' => '26 June 2026', 'rating' => 5, 'comment' => 'Jaringan internet stabil selama acara.'],
+        ['name' => 'Salsabila Rahma', 'date' => '27 June 2026', 'rating' => 5, 'comment' => 'Pencahayaan ruangan cukup baik.'],
+    ],
+];
+
+Route::get('/rooms/{id}', fn ($id) => $roomDetail($id, 0, $reviewData))
+    ->whereNumber('id')->name('rooms.show');
+Route::get('/rooms/{id}/reviews', fn ($id) => $roomDetail($id, 1, $reviewData))
+    ->whereNumber('id')->name('rooms.reviews');
+
+/*
+|--------------------------------------------------------------------------
 | Bookings: All, Active, Approved, Pending
 |--------------------------------------------------------------------------
 */
@@ -152,8 +263,7 @@ Route::prefix('bookings')->group(function () use ($bk, $SI, $ITS) {
 
 /*
 |--------------------------------------------------------------------------
-| Booking Summary
-| Harus SETELAH group /bookings agar /bookings/active dll. tidak tertangkap {id}
+| Booking Summary (setelah group /bookings agar tidak bentrok dengan {id})
 |--------------------------------------------------------------------------
 */
 Route::get('/bookings/{id}', fn ($id) => view('pages.bookings_summary', ['booking' => [
@@ -181,3 +291,60 @@ Route::get('/bookings/{id}', fn ($id) => view('pages.bookings_summary', ['bookin
         ['name' => 'Surat Peminjaman.pdf', 'size' => '1.2 MB'],
     ],
 ]]))->whereNumber('id')->name('bookings.show');
+
+/*
+|--------------------------------------------------------------------------
+| Notifikasi (filter: all | actions | updates | system)
+|--------------------------------------------------------------------------
+*/
+Route::get('/notifikasi', function () {
+    $all = [
+        ['category' => 'actions', 'type' => 'action', 'title' => 'Action Required', 'time' => '2 mins ago',
+         'message' => 'Please upload your document revision for Request #123. Update before 27 May 2026 at 19.00 PM.',
+         'actions' => [['label' => 'Update', 'href' => '#'], ['label' => 'Details', 'href' => '#']]],
+        ['category' => 'updates', 'type' => 'approved', 'title' => 'Status Update', 'time' => '15 mins ago',
+         'message' => 'Your booking for Room 101 has been Approved. You can now access the room keycard details in your bookings.',
+         'actions' => [['label' => 'Check-In', 'href' => url('/checkin/1')], ['label' => 'Details', 'href' => '#']]],
+        ['category' => 'updates', 'type' => 'timelimit', 'title' => 'Status Update', 'time' => '2 mins ago',
+         'message' => 'Your booking for Room 67 has reached its time limit.',
+         'actions' => [['label' => 'Check-Out', 'href' => url('/checkout/1')]]],
+        ['category' => 'actions', 'type' => 'unfinished', 'title' => 'Unfinished booking', 'time' => '2 mins ago',
+         'message' => 'Your booking progress for Room 62 has not been finished. Continue?',
+         'actions' => [['label' => 'Continue', 'href' => '#'], ['label' => 'Cancel Booking', 'href' => '#']]],
+        ['category' => 'actions', 'type' => 'action', 'title' => 'Action Required', 'time' => '2 hours ago',
+         'message' => 'Please upload your document revision for Request #124. Update before 28 May 2026 at 19.00 PM.',
+         'actions' => [['label' => 'Update', 'href' => '#'], ['label' => 'Details', 'href' => '#']]],
+        ['category' => 'system', 'type' => 'system', 'title' => 'System Maintenance', 'time' => '1 day ago',
+         'message' => 'The app will be unavailable on 30 May 2026, 01.00–03.00 WIB.',
+         'actions' => []],
+    ];
+
+    $filter = request('filter', 'all');
+    $active = ['all' => 0, 'actions' => 1, 'updates' => 2, 'system' => 3][$filter] ?? 0;
+    $notifications = $filter === 'all' ? $all : array_values(array_filter($all, fn ($n) => $n['category'] === $filter));
+
+    return view('pages.notifikasi', compact('notifications', 'active'));
+})->name('notifikasi');
+
+/*
+|--------------------------------------------------------------------------
+| Chat: daftar percakapan & ruang pesan
+|--------------------------------------------------------------------------
+*/
+Route::get('/chat', fn () => view('pages.percakapan', ['conversations' => [
+    ['id' => 1, 'name' => 'Artin Finalita, S.T, M.T', 'time' => '10:45 AM', 'unread' => 3,
+     'preview' => 'I see. Could you please send a photo of the cable connection? I\'ll check if a maintenance staff is nearby.'],
+]]))->name('chats');
+
+Route::get('/chat/{id}', fn ($id) => view('pages.pesan', [
+    'admin' => ['id' => $id, 'name' => 'Artin Finalita, S.T, M.T', 'status' => 'Average Response: 2h'],
+    'date' => 'Monday, Oct 23',
+    'messages' => [
+        ['side' => 'in',  'time' => '10:42 AM', 'text' => 'Hello! I am the administrator for Campus A Sarpras. How can I assist you today regarding your room booking?'],
+        ['side' => 'out', 'time' => '10:44 AM', 'text' => 'Hi, I\'m having trouble with the projector in Room 302. It keeps flickering and showing \'No Signal\'.'],
+        ['side' => 'in',  'time' => '10:45 AM', 'text' => 'I see. Could you please send a photo of the cable connection? I\'ll check if a maintenance staff is nearby.'],
+        ['side' => 'out', 'time' => '10:46 AM', 'image' => 'images/rooms/blue-class.jpg'],
+    ],
+]))->whereNumber('id')->name('chat.show');
+
+Route::post('/chat/{id}', fn () => back())->whereNumber('id')->name('chat.send');

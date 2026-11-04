@@ -11,9 +11,11 @@
 @endphp
 
 <div class="flex min-h-full flex-col bg-grey-100">
-  <x-header_compact />
 
-  <main class="flex flex-1 flex-col pb-5">
+  {{-- Bagian atas sticky: header + judul + tab --}}
+  <div class="sticky top-0 z-20 bg-grey-100">
+    <x-header_compact />
+
     <div class="flex items-center justify-between px-6 pt-5">
       <h2 class="text-[24px] leading-7 font-extrabold text-primary-800">Your Bookings</h2>
       <button type="button" aria-label="Urutkan" class="flex size-6 items-center justify-center text-primary-500">
@@ -22,7 +24,9 @@
     </div>
 
     <x-tabs :items="$tabs" :active="$active" class="mt-3 px-6" />
+  </div>
 
+  <main class="flex flex-1 flex-col pb-5">
     <div class="mt-4 flex flex-col gap-4 px-6">
       @foreach($bookings as $b)
         <x-card_booking_history

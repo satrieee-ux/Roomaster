@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="flex min-h-full flex-col bg-grey-100">
-  <x-header variant="topbar" title="Booking Summary" :back="url('/bookings')" />
+  <x-header_topappbar title="Booking Summary" :back="url('/bookings')" />
 
   <main class="flex flex-1 flex-col gap-4 px-6 pb-5 pt-5">
 

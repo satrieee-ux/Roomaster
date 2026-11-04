@@ -1,5 +1,5 @@
 {{-- Header gelap ringkas (tanpa sapaan & search). Dipakai: Your Bookings. Sticky. --}}
-@props(['name' => 'Zenkko', 'avatar' => null, 'chatUrl' => '#', 'notifUrl' => '#'])
+@props(['name' => 'Zenkko', 'avatar' => null, 'chatUrl' => '/chat', 'notifUrl' => '/notifikasi'])
 
 <header {{ $attributes->class(['sticky top-0 z-20 shrink-0 rounded-b-[32px] bg-primary-900 text-white']) }}>
   <div class="flex h-[108px] items-end justify-between px-2 pb-4">
