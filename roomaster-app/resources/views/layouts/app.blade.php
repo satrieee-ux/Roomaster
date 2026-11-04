@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title ?? 'Roomaster' }}</title>
+    <link rel="icon" href="{{ asset('logo.svg') }}" type="image/svg+xml">
+    <!-- Browser jadul otomatis pakai yang ini -->
 
     {{-- Plus Jakarta Sans: 400 (Regular), 500 (Medium), 600 (SemiBold), 800 (ExtraBold) --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">

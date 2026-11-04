@@ -24,8 +24,8 @@
         <div class="flex items-center gap-sm">
             <x-avatar :src="$contact['avatar']" :name="$contact['name']" size="h-10 w-10" online />
             <div>
-                <p class="text-s1 leading-5 text-grey-900">{{ $contact['name'] }}</p>
-                <p class="text-c3 text-grey-500">{{ $contact['role'] }}</p>
+                <p class="text-[18px] leading-7 font-semibold leading-5 text-grey-900">{{ $contact['name'] }}</p>
+                <p class="text-[10px] leading-[14px] font-medium text-grey-500">{{ $contact['role'] }}</p>
             </div>
         </div>
         <button type="button" aria-label="Menu" class="text-grey-800">
@@ -35,7 +35,7 @@
 
     {{-- Pesan --}}
     <div id="chat-scroll" class="flex-1 space-y-md overflow-y-auto px-md py-md [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        <div class="mx-auto w-fit rounded-full bg-grey-700 px-sm py-1 text-c2 text-white">Monday, Oct 23</div>
+        <div class="mx-auto w-fit rounded-full bg-grey-700 px-sm py-1 text-[12px] leading-4 font-medium text-white">Monday, Oct 23</div>
 
         @foreach($messages as $m)
             @php($isMe = $m['from'] === 'me')
@@ -56,7 +56,7 @@
                 <i data-lucide="paperclip" class="h-6 w-6"></i>
             </button>
             <input type="text" name="message" placeholder="Type a message..." autocomplete="off"
-                   class="min-w-0 flex-1 bg-transparent text-b3 text-grey-900 outline-none placeholder:text-grey-400">
+                   class="min-w-0 flex-1 bg-transparent text-[14px] leading-5 font-normal text-grey-900 outline-none placeholder:text-grey-400">
         </div>
         <x-button variant="secondary" size="lg" icon="send" type="submit" aria-label="Kirim" class="!w-14" />
     </form>

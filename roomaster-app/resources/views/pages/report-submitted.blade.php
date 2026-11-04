@@ -7,7 +7,7 @@
         <x-success-badge />
 
         <h1 class="mt-lg text-h4 text-grey-900">Report Submitted</h1>
-        <p class="mt-sm px-xs text-b1 text-grey-600">
+        <p class="mt-sm px-xs text-[16px] leading-6 font-normal text-grey-600">
             Your facility report has been successfully logged into the system.
             A maintenance team will review the details shortly.
         </p>

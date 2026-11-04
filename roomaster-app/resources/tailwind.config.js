@@ -1,85 +1,36 @@
 /** @type {import('tailwindcss').Config} */
+// Token warna & tipografi Roomaster (Tailwind v3).
+// CATATAN: hex diestimasi dari gambar palet; cocokkan dengan Figma bila ada selisih.
 export default {
-  content: [
-    "./resources/**/*.blade.php",
-    "./resources/**/*.js",
-    "./resources/**/*.vue",
-  ],
+  content: ['./resources/**/*.blade.php', './resources/**/*.js'],
   theme: {
     extend: {
-      fontFamily: {
-        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-      },
+      fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
       colors: {
-        primary: {
-          50: '#B5D7FF',
-          100: '#9AC8FF',
-          200: '#74B1F2',
-          300: '#569FE2',
-          400: '#4895C2',
-          500: '#3B7BA0',
-          600: '#2E6280',
-          700: '#254F67',
-          800: '#153343',
-          900: '#112A35',
-        },
-        secondary: {
-          50: '#FFE1C1',
-          100: '#FFD2A3',
-          200: '#FFC385',
-          300: '#FEB161',
-          400: '#EE914E',
-          500: '#D97A47',
-          600: '#C66531',
-          700: '#A35139',
-          800: '#85422E',
-          900: '#773825',
-        },
-        grey: {
-          50: '#F9FAFB',
-          100: '#F3F4F6',
-          200: '#E5E7EA',
-          300: '#D2D5DB',
-          400: '#9EA2AE',
-          500: '#6D717F',
-          600: '#4D5461',
-          700: '#394050',
-          800: '#212936',
-          900: '#131927',
-        },
-        green: {
-          50: '#E0F8E6',
-          500: '#43B75D',
-          800: '#256533',
-        },
-        red: {
-          50: '#FCE5E5',
-          500: '#EE443F',
-          800: '#832523',
-        },
-        yellow: {
-          50: '#FFF7E6',
-          500: '#FFAA00',
-          800: '#8C5E00',
-        }
+        primary:   { 900: '#112A35', 800: '#153343', 500: '#3B7BA0' /* shade lain tetap */ },
+secondary: { 500: '#D97A47' /* shade lain tetap */ },
+grey:      { 50: '#F9FAFB', 100: '#F3F4F6', 200: '#E5E7EA', 500: '#6D717F', 800: '#212936' /* lainnya tetap */ },
+success:   { 500: '#43B75D' /* lainnya tetap */ },
+        danger: { 900: '#601C1C', 800: '#832424', 700: '#A92E2E', 600: '#DB3D3A', 500: '#F04440', 400: '#F26560', 300: '#F58380', 200: '#F8AAA8', 100: '#FAC5C3', 50: '#FCE5E5' },
+        warning: { 900: '#6B4800', 800: '#8A5E00', 700: '#B87800', 600: '#E89C00', 500: '#FFAB00', 400: '#FFBA2E', 300: '#FFC84D', 200: '#FFD985', 100: '#FFE9B8', 50: '#FFF6E0' },
       },
-      borderRadius: {
-        'xxs': '4px',
-        'xs': '8px',
-        'sm': '12px',
-        'md': '16px',
-        'lg': '20px',
-        'xl': '24px',
+      fontSize: {
+        h4: ['28px', { lineHeight: '34px', fontWeight: '800' }],
+        h5: ['24px', { lineHeight: '28px', fontWeight: '800' }],
+        s1: ['18px', { lineHeight: '28px', fontWeight: '600' }],
+        s2: ['16px', { lineHeight: '24px', fontWeight: '600' }],
+        b1: ['16px', { lineHeight: '24px', fontWeight: '400' }],
+        b2: ['16px', { lineHeight: '24px', fontWeight: '600' }],
+        b3: ['14px', { lineHeight: '20px', fontWeight: '400' }],
+        b4: ['14px', { lineHeight: '20px', fontWeight: '600' }],
+        c1: ['12px', { lineHeight: '16px', fontWeight: '400' }],
+        c2: ['12px', { lineHeight: '16px', fontWeight: '500' }],
+        c3: ['10px', { lineHeight: '14px', fontWeight: '400' }],
       },
-      spacing: {
-        'xxs': '4px',
-        'xs': '8px',
-        'sm': '12px',
-        'md': '16px',
-        'lg': '20px',
-        'xl': '24px',
-      }
+      boxShadow: {
+        card: '0 4px 24px rgba(20, 26, 40, 0.10)',
+      },
     },
   },
   plugins: [],
-}
+};

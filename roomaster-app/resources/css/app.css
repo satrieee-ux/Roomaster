@@ -36,3 +36,8 @@
     .label-text { font-size: 12px; line-height: 16px; font-weight: 500; }
     button, .btn { font-weight: 600; }
 }
+
+@layer utilities {
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+}

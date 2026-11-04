@@ -20,7 +20,7 @@
                 <i data-lucide="{{ $icon }}" class="h-5 w-5"></i>
             </span>
             <div>
-                <p class="text-b4 {{ $state === 'upcoming' ? 'text-grey-500' : 'text-grey-900' }}">{{ $s['title'] }}</p>
+                <p class="text-[14px] leading-5 font-semibold {{ $state === 'upcoming' ? 'text-grey-500' : 'text-grey-900' }}">{{ $s['title'] }}</p>
                 <p class="text-c1 {{ $state === 'upcoming' ? 'text-grey-500' : 'text-grey-700' }}">{{ $s['desc'] ?? '' }}</p>
             </div>
         </li>

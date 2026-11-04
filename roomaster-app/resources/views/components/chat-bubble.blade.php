@@ -22,13 +22,13 @@
                 </div>
             @endif
         @else
-            <div class="rounded-xl px-md py-sm text-b1 {{ $me ? 'rounded-br-xxs bg-primary-800 text-white' : 'rounded-bl-xxs bg-grey-200 text-grey-900' }}">
+            <div class="rounded-xl px-md py-sm text-[16px] leading-6 font-normal {{ $me ? 'rounded-br-xxs bg-primary-800 text-white' : 'rounded-bl-xxs bg-grey-200 text-grey-900' }}">
                 {{ $slot }}
             </div>
         @endif
 
         @if($time)
-            <span class="text-c2 text-grey-700">{{ $time }}</span>
+            <span class="text-[12px] leading-4 font-medium text-grey-700">{{ $time }}</span>
         @endif
     </div>
 

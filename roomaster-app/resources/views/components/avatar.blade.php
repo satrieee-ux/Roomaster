@@ -1,7 +1,7 @@
 @props(['src' => null, 'name' => '', 'size' => 'h-10 w-10', 'online' => false])
 
 <span {{ $attributes->merge(['class' => "relative inline-flex shrink-0 $size"]) }}>
-    <span class="flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-primary-50 text-c2 text-primary-700">
+    <span class="flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-primary-50 text-[12px] leading-4 font-medium text-primary-700">
         @if($src)
             <img src="{{ $src }}" alt="{{ $name }}" class="h-full w-full object-cover">
         @else

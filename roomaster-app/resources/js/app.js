@@ -43,7 +43,7 @@ const renderCalendar = (root) => {
         btn.type = 'button';
         btn.dataset.date = iso;
         btn.textContent = d.getDate();
-        btn.className = 'mx-auto flex h-9 w-9 items-center justify-center rounded-full text-b3 transition-colors '
+        btn.className = 'mx-auto flex h-9 w-9 items-center justify-center rounded-full text-[14px] leading-5 font-normal transition-colors '
             + (iso === selected ? '!bg-primary-800 !text-white'
                 : outside ? 'text-grey-400 hover:bg-grey-100' : 'text-grey-900 hover:bg-primary-50');
         grid.appendChild(btn);

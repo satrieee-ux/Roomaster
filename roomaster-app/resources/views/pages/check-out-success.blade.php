@@ -7,7 +7,7 @@
         <x-success-badge />
 
         <h1 class="mt-lg text-h4 text-grey-900">Check-Out Success</h1>
-        <p class="mt-sm text-b1 text-grey-600">
+        <p class="mt-sm text-[16px] leading-6 font-normal text-grey-600">
             Your room booking check-out process has been completed. If there are any faulty
             equipment, please report accordingly as stated in Roomaster’s
             <a href="#" class="text-primary-500 underline underline-offset-2">user Terms &amp; Conditions.</a>

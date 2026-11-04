@@ -11,7 +11,7 @@
 
         <div class="flex items-center justify-between border-b border-grey-200 pb-sm">
             <i data-lucide="calendar-days" class="h-6 w-6 text-primary-500"></i>
-            <h2 id="{{ $id }}-title" class="text-b4 text-grey-900">Choose Date</h2>
+            <h2 id="{{ $id }}-title" class="text-[14px] leading-5 font-semibold text-grey-900">Choose Date</h2>
             <button type="button" data-popup-close aria-label="Close" class="text-primary-500">
                 <i data-lucide="x" class="h-6 w-6"></i>
             </button>
@@ -21,13 +21,13 @@
             <button type="button" data-cal-prev aria-label="Previous month" class="text-primary-500">
                 <i data-lucide="chevron-left" class="h-5 w-5"></i>
             </button>
-            <span data-cal-title class="text-b3 text-grey-900"></span>
+            <span data-cal-title class="text-[14px] leading-5 font-normal text-grey-900"></span>
             <button type="button" data-cal-next aria-label="Next month" class="text-primary-500">
                 <i data-lucide="chevron-right" class="h-5 w-5"></i>
             </button>
         </div>
 
-        <div class="mt-sm grid grid-cols-7 text-center text-c2 text-primary-500">
+        <div class="mt-sm grid grid-cols-7 text-center text-[12px] leading-4 font-medium text-primary-500">
             @foreach(['S','M','T','W','T','F','S'] as $d)<span>{{ $d }}</span>@endforeach
         </div>
 
