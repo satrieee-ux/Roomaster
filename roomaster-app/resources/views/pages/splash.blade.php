@@ -3,7 +3,7 @@
 @section('content')
 <div class="flex min-h-full flex-col items-center bg-grey-50 bg-cover bg-center px-14 pb-8 pt-[278px]"
      style="background-image: url('{{ asset('images/bg/splash.jpg') }}')">
-  <img src="{{ asset('logo.svg') }}" alt="Roomaster" class="h-[52px]">
+  <img src="{{ asset('images/logo.svg') }}" alt="Logo"> class="h-[52px]">
   <h1 class="mt-3 text-center text-[24px] leading-7 font-extrabold text-primary-900">Welcome to<br>Roomaster.</h1>
   <p class="mt-1 text-center text-[14px] leading-5 font-normal text-grey-800">Pinjam Ruangan Langsung Beres,<br>Lapor Kerusakan Anti Stres.</p>
 

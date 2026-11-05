@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>{{ $title ?? 'Roomaster' }}</title>
-    <link rel="icon" href="{{ asset('logo.svg') }}" type="image/svg+xml">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('images/logo.svg') }}">
     <!-- Browser jadul otomatis pakai yang ini -->
 
     {{-- Plus Jakarta Sans: 400 (Regular), 500 (Medium), 600 (SemiBold), 800 (ExtraBold) --}}
