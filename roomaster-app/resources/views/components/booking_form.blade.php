@@ -36,17 +36,8 @@ $label = 'text-[14px] leading-5 font-semibold text-grey-800';
         <textarea id="purpose" name="purpose" placeholder="Briefly describe the purpose of the booking"
                   class="h-[106px] w-full resize-none {{ $field }} py-3 text-[14px] leading-5 font-normal text-grey-800 placeholder:text-grey-500">{{ $purpose }}</textarea>
 
-        <label for="department" class="{{ $label }}">Department</label>
-        <span class="relative block">
-          <select id="department" name="department"
-                  class="h-[46px] w-full appearance-none {{ $field }} pr-10 text-[16px] leading-6 font-normal text-grey-800">
-            <option value="" @selected(! $department)>Select</option>
-            @foreach($departments as $dep)
-              <option value="{{ $dep }}" @selected($department === $dep)>{{ $dep }}</option>
-            @endforeach
-          </select>
-          <x-icon name="chevron-down" :size="24" class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-grey-500" />
-        </span>
+        <span class="{{ $label }}">Department</span>
+        <x-dropdown_departemen name="department" :value="$department" />
 
         <span class="{{ $label }}">Date</span>
         <button type="button" data-date-open data-popup-open="popup-tanggal" class="flex h-[46px] items-center gap-3 text-left {{ $field }}">
