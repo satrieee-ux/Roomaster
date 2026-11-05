@@ -11,12 +11,12 @@ $items = collect($items)->map(fn ($i) => is_array($i) ? $i : ['label' => $i, 'hr
       @php $icon = $item['icon'] ?? null; @endphp
       <a href="{{ $item['href'] ?? '#' }}" @class([
         'inline-flex shrink-0 items-center whitespace-nowrap rounded-full text-[12px] leading-4 font-medium',
-        'h-10 gap-2 pl-3 pr-4' => $icon,
+        'h-8 gap-1.5 px-4' => $icon,
         'h-8 px-4' => ! $icon,
         'bg-primary-800 text-white shadow-[0_0_12px_rgba(59,123,160,0.5)]' => $i === $active,
         'bg-grey-200 text-primary-500' => $i !== $active,
       ])>
-        @if($icon)<x-icon :name="$icon" :size="24" />@endif
+        @if($icon)<x-icon :name="$icon" :size="16" />@endif
         {{ $item['label'] }}
       </a>
     @endforeach

@@ -31,7 +31,7 @@
       @endforeach
     </div>
   @else
-    <div class="no-scrollbar -mb-4 flex items-start gap-3 overflow-x-auto px-6 pb-4">
+    <div class="no-scrollbar -mb-4 flex items-stretch gap-3 overflow-x-auto px-6 pb-4">
       @foreach($rooms as $r)
         <x-card_room layout="vertical" class="shrink-0" :id="$r['id']"
           :title="$r['title']" :department="$r['department']"

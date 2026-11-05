@@ -1,5 +1,6 @@
 {{-- Card ruangan. layout: vertical (kecil 200px) | vertical_large (lebar penuh) | horizontal (list kecil).
      Vertical: gambar full-bleed menempel ke tepi atas kartu (sudut atas ikut lengkung kartu, sudut bawah lurus).
+     Dalam baris berjejer, kartu meregang ke tinggi kartu tertinggi; tombol selalu di dasar kartu.
      Tautan otomatis ke /rooms/{id} bila id diisi; href manual menimpa. --}}
 @props([
   'layout' => 'vertical',
@@ -32,13 +33,13 @@ $src   = $image ? asset($image) : '';
   </a>
 @else
   @php $large = $layout === 'vertical_large'; @endphp
-  <div {{ $attributes->class(['overflow-hidden rounded-3xl bg-white shadow-card', $large ? 'w-full' : 'w-[200px]']) }}>
+  <div {{ $attributes->class(['flex flex-col overflow-hidden rounded-3xl bg-white shadow-card', $large ? 'w-full' : 'w-[200px]']) }}>
     {{-- Gambar: selebar kartu, menempel ke atas, sudut bawah lurus --}}
-    <a href="{{ $link }}" class="block">
+    <a href="{{ $link }}" class="block shrink-0">
       <img src="{{ $src }}" alt="{{ $title }}" class="block w-full object-cover {{ $large ? 'h-[208px]' : 'h-[120px]' }}">
     </a>
 
-    <div class="p-3">
+    <div class="flex flex-1 flex-col p-3">
       <div class="flex items-center justify-between gap-2">
         <h4 @class([
           'min-w-0 truncate font-semibold text-grey-800',
@@ -55,13 +56,16 @@ $src   = $image ? asset($image) : '';
       </div>
 
       <p @class([
-        'flex items-center gap-1.5 text-[12px] leading-4 font-medium text-grey-800',
+        'flex items-start gap-1.5 text-[12px] leading-4 font-medium text-grey-800',
         'mt-2' => $large,
         'mt-1' => ! $large,
-      ])><x-icon name="map-pin" :size="14" />{{ $department }}</p>
-      <p class="flex items-center gap-1.5 text-[12px] leading-4 font-medium text-grey-800"><x-icon name="users" :size="14" />{{ $cap }}</p>
+      ])><x-icon name="map-pin" :size="14" class="shrink-0" />{{ $department }}</p>
+      <p class="flex items-center gap-1.5 text-[12px] leading-4 font-medium text-grey-800"><x-icon name="users" :size="14" class="shrink-0" />{{ $cap }}</p>
 
-      <x-button :href="$link" size="tiny" class="mt-3 w-full">Book Now</x-button>
+      {{-- mt-auto: tombol selalu menempel di dasar kartu, berapa pun tinggi teks di atasnya --}}
+      <div class="mt-auto pt-3">
+        <x-button :href="$link" size="tiny" class="w-full">Book Now</x-button>
+      </div>
     </div>
   </div>
 @endif

@@ -51,7 +51,7 @@
         <h2 class="text-[16px] leading-6 font-semibold text-primary-800">Recently Booked</h2>
         <x-button href="/rooms" variant="soft" size="tiny" iconRight="chevron-right" class="shrink-0 whitespace-nowrap">See All</x-button>
       </div>
-      <div class="no-scrollbar -mb-4 flex items-start gap-3 overflow-x-auto px-6 pb-4">
+      <div class="no-scrollbar -mb-4 flex items-stretch gap-3 overflow-x-auto px-6 pb-4">
         @foreach($recent as $room)
           <x-card_room class="shrink-0" layout="vertical"
             :title="$room['title']" :department="$room['department']" :capacity="$room['capacity']"

@@ -27,7 +27,7 @@
   {{-- Foto utama + galeri --}}
   <div class="relative h-[359px] shrink-0">
     <img src="{{ asset($room['image']) }}" alt="{{ $room['title'] }}" class="size-full rounded-b-[32px] object-cover">
-    <div class="absolute inset-x-5 bottom-5 flex gap-2 rounded-2xl bg-white p-2">
+    <div class="absolute inset-x-5 bottom-5 flex gap-2 rounded-lg bg-white p-2">
       @foreach($room['gallery'] as $img)
         <div class="relative h-[70px] flex-1 overflow-hidden rounded-lg">
           <img src="{{ asset($img) }}" alt="" class="size-full object-cover">
@@ -65,9 +65,10 @@
         </a>
       </div>
 
-      <span class="mt-2 inline-flex w-fit items-center gap-1 rounded-[20px] bg-success-50 px-2 py-1 text-[10px] leading-[14px] font-medium text-success-500">
-        <x-icon name="check-circle" :size="12" /> Now Available
-      </span>
+      <span class="mt-2 inline-flex w-fit items-center gap-1.5 rounded-full bg-success-50 px-3 py-1 text-[12px] leading-4 font-medium text-success-500">
+  <span class="size-1.5 rounded-full bg-success-500"></span>
+  Now Available
+</span>
     </div>
 
     <x-tabs :items="$tabs" :active="$tab" class="mt-5 px-6" />
@@ -103,7 +104,7 @@
               <span class="text-[10px] leading-[14px] font-medium text-grey-500">Response Time: {{ $room['cs']['response'] }}</span>
             </div>
           </div>
-          <a href="#" aria-label="Chat CS"
+          <a href="{{ url('/chat/1') }}" aria-label="Chat CS"
              class="flex size-10 shrink-0 items-center justify-center rounded-full bg-grey-100 text-primary-500">
             <x-icon name="message-square" :size="20" />
           </a>
