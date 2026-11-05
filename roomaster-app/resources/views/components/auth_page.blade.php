@@ -12,7 +12,7 @@
   </div>
 
   <div class="relative z-10 flex flex-1 flex-col pt-[95px]">
-    <img src="{{ asset('logo.svg') }}" alt="Roomaster" class="mx-auto h-[53px]">
+    <img src="{{ asset('images/logo.svg') }}" alt="Logo" class="mx-auto h-[53px]">
     <h1 class="mt-3.5 text-center text-[24px] leading-7 font-extrabold text-white">Get Started Now</h1>
     <p class="mt-1 text-center text-[14px] leading-5 font-normal text-white">Create an account or log in.</p>
 
